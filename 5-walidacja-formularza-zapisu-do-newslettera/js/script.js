@@ -9,14 +9,35 @@ const validate = (event) => {
   let agree1 = document.getElementById("agree-1");
   let errors = document.getElementById("errors");
 
+  errors.innerHTML = "";
+
   if (txtName.value.trim() === "") {
     let liError = document.createElement("li");
     liError.innerText = "Wpisz imię i nazwisko!";
-
-    console.log(liError);
+    errors.appendChild(liError);
   }
 
-  event.preventDefault();
+  if (txtEmail.value.trim() === "") {
+    let liError = document.createElement("li");
+    liError.innerText = "Wpisz Adres e-mail";
+    errors.appendChild(liError);
+  }
+
+  if (!txtEmail.value.includes("@")) {
+    let liError = document.createElement("li");
+    liError.innerText = "Adres e-mail musi zawierać @";
+    errors.appendChild(liError);
+  }
+
+  if (!agree1.checked) {
+    let liError = document.createElement("li");
+    liError.innerText = "Nie wyeaźiłeś zgody 1!";
+    errors.appendChild(liError);
+  }
+  console.log(errors.children.length);
+  if (errors.children.length > 0) {
+    event.preventDefault();
+  }
 };
 
 const allAgree = (event) => {
@@ -32,5 +53,3 @@ const allAgree = (event) => {
 
 newsletterForm.addEventListener("submit", validate);
 allAgreeChx.addEventListener("change", allAgree);
-
-//30:00
